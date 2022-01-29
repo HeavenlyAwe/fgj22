@@ -29,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 move = Vector3.zero;
     private Animator _animator;
 
+    [SerializeField]
+    private int factionSize = 0;
+
     private void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
@@ -51,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (interactableGrabbed)
         {
-            currentlySelectedInteractable.Interact(new Vector3(inputVec.x, 0, inputVec.y));
+            currentlySelectedInteractable.Interact(new Vector3(inputVec.x, 0, inputVec.y), factionSize);
 
             // Do not move if grabbing anything
             move = Vector3.zero;
@@ -82,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                currentlySelectedInteractable.Interact(transform);
+                currentlySelectedInteractable.Interact(transform, factionSize);
             }
         }
 
