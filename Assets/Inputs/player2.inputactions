@@ -221,6 +221,17 @@
                 },
                 {
                     "name": "",
+                    "id": "73cd9514-86e2-4adb-9789-64e4d17c4d40",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bd4f82ff-8b71-4c8e-8189-9ed28a736a15",
                     "path": "<Keyboard>/numpad0",
                     "interactions": "",

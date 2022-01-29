@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 76719445}
   m_Layer: 0
   m_Name: Player1 Placeholder
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -714,7 +714,7 @@ GameObject:
   - component: {fileID: 1030965628}
   m_Layer: 0
   m_Name: Player2 Placeholder
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

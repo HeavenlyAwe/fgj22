@@ -39,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
         move = new Vector3(inputVec.x, 0, inputVec.y);
     }
 
+    public void OnFire(InputValue value)
+    {
+        Debug.Log(gameObject.name + ", " + gameObject.tag);
+    }
+
     void Update()
     {
         groundedPlayer = controller.isGrounded;
