@@ -49,6 +49,7 @@ MonoBehaviour:
   playerSpeed: 5
   jumpHeight: 1
   gravityValue: -9.81
+  highlightColor: {r: 0, g: 0, b: 0, a: 0}
   maxNumberOfJumps: 1
   influenceRange: 5
 --- !u!114 &9047668904493580574
