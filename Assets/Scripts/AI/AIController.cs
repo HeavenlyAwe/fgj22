@@ -122,6 +122,10 @@ public class AIController : MonoBehaviour
                 FollowPlayerMove();
                 break;
             case State.Fight:
+                foreach (Transform child in transform)
+                {
+                    child.GetComponent<Animator>().SetBool("isAngry", true);
+                }
                 Fight();
                 break;
             case State.Die:
