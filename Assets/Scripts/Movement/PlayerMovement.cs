@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
+        
         //
         // Perform actions/interaction
         //

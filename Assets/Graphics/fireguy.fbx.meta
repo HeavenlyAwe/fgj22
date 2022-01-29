@@ -4,8 +4,17 @@ ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
+      74: 885944232402757753
+    second: Armature|Action
+  - first:
       74: 7378823298791719902
     second: Armature|idleAnimation
+  - first:
+      74: 1767233864716236537
+    second: Armature|actionAnimation
+  - first:
+      74: 8362438030038246236
+    second: Armature|actionAnimation.001
   - first:
       74: 6862445879461023635
     second: Armature|runAnimation
@@ -98,7 +107,7 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
