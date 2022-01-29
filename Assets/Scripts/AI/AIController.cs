@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Animations;
 using UnityEditor.Experimental.TerrainAPI;
 using UnityEditorInternal;
@@ -50,6 +51,7 @@ public class AIController : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     private Vector3 _anchorPoint;
     private Transform _playerTransform = null;
+    private Collider[] _fightRadiusColliders = null;
 
     private void Awake()
     {
@@ -68,8 +70,8 @@ public class AIController : MonoBehaviour
     void Update()
     {
         
-        // Scan for followers of other factions
-        //Physics.OverlapSphere(transform.position, fightRadius, )
+        // Scan for followers of other factions to fight (unless neutral or already fighting)
+        if ( (faction!=Faction.Neutral) && (state != State.Fight) ) ScanForEnemies();
         
         // Movement behaviour for follower
         switch (state)
@@ -109,9 +111,10 @@ public class AIController : MonoBehaviour
                 waterFollower.SetActive(true);
                 break;
         }
-        
-        ChangeState(State.Follow);
         faction = newFaction;
+        
+        // On a faction change, start immediately following new leader
+        ChangeState(State.Follow);
     }
 
     public void ChangeState(State newState)
@@ -190,5 +193,34 @@ public class AIController : MonoBehaviour
         
     }
 
+    // Function for scanning surroundings for other followers
+    private void ScanForEnemies()
+    {
+        _fightRadiusColliders = Physics.OverlapSphere(transform.position, fightRadius);
+        Transform foundFollower = null;
+        foreach (var hitCollider in _fightRadiusColliders)
+        {
+            // Check if the found collider is a follower
+            if (hitCollider.gameObject.CompareTag("Follower")) {foundFollower = hitCollider.transform;}
+            else {continue;}
 
+            // Get the found follower AIController
+            var foundFollowerAic = foundFollower.GetComponent<AIController>();
+
+            // If the found follower was neutral, skip it
+            if (foundFollowerAic.faction == Faction.Neutral) continue;
+            
+            // If the found follower is of other faction, and not already fighting, fight the follower!
+            if ((foundFollowerAic.faction != faction) && (foundFollowerAic.state != State.Fight))
+            {
+                FightFollower(foundFollowerAic);
+            }
+            
+        }
+    }
+
+    private void FightFollower(AIController followerToFight)
+    {
+        print("Fighting: " + faction.ToString() + " " + followerToFight.faction.ToString() );
+    }
 }

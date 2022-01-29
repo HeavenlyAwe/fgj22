@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Water
+  - Follower
   layers:
   - Default
   - TransparentFX

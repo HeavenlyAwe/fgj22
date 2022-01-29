@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2891025609384607703}
   m_Layer: 0
   m_Name: Follower
-  m_TagString: Untagged
+  m_TagString: Follower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   faction: 0
   followerSpeed: 4
   roamingRadius: 5
+  fightRadius: 2
   neutralFollower: {fileID: 8571535684927335280}
   fireFollower: {fileID: 3127341931425816765}
   waterFollower: {fileID: 3483481384968863557}
