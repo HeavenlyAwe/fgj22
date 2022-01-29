@@ -146,13 +146,14 @@ public class PlayerMovement : MonoBehaviour
 
         //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         controller.Move(move * Time.deltaTime * playerSpeed);
-        
+
         // Update animator to animate running based on speed!
         _animator.SetFloat("Speed", move.magnitude);
         
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            //gameObject.transform.forward = move;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * 10.0f);
         }
 
         // Changes the height position of the player..
