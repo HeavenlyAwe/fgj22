@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,23 +18,21 @@ public class AIController : MonoBehaviour
         Die,
     }
 
-    // Factions the follower can follow
-    public enum Following
+    public enum Faction
     {
-        Neutral,
+        Neutral, 
         Fire,
         Water,
     }
 
     [Header("States")]
-    [Tooltip("Current moving state follower is in")]
     public State state;
-    [Tooltip("What this follower follows")]
-    public Following currentFollowing = Following.Neutral;
+
+    public Faction faction = Faction.Neutral;
 
     [Header("Movement")] 
     [Tooltip("Speed with which follower moves")]
-    public float followerSpeed = 1.0f;
+    public float followerSpeed = 3.0f;
     [Tooltip("How far the follower can move from its anchor point when roaming")]
     public float roamingRadius = 5.0f;
 
@@ -54,7 +53,7 @@ public class AIController : MonoBehaviour
     {
         _anchorPoint = transform.position;
         _navMeshAgent.speed = followerSpeed;
-        changeFollowingState(currentFollowing);
+        changeFaction(faction);
     }
 
     // Update is called once per frame
@@ -75,18 +74,26 @@ public class AIController : MonoBehaviour
     }
 
     // Function for updating this followers current following
-    public void changeFollowingState(Following newFollowing)
+    public void changeFaction(Faction newFaction)
     {
         // This is lazy code
         neutralFollower.SetActive(false);
         fireFollower.SetActive(false);
         waterFollower.SetActive(false);
-        
-        if (newFollowing==Following.Neutral) neutralFollower.SetActive(true);
-        if (newFollowing==Following.Fire) fireFollower.SetActive(true);
-        if (newFollowing==Following.Water) waterFollower.SetActive(true);
 
-        currentFollowing = newFollowing;
+        switch (newFaction)
+        {
+            case Faction.Neutral:
+                neutralFollower.SetActive(true);
+                break;
+            case Faction.Fire:
+                fireFollower.SetActive(true);
+                break;
+            case Faction.Water:
+                waterFollower.SetActive(true);
+                break;
+        }
+
     }
     
     // Function for moving follower randomly within an "anchor" unit circle
