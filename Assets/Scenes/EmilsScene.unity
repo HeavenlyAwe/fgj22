@@ -2445,6 +2445,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: followerSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
       value: 0
       objectReference: {fileID: 0}
