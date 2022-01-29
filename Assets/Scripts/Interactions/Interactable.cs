@@ -23,7 +23,7 @@ public abstract class Interactable : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = originalColor;
     }
 
-    public virtual void Interact()
+    public virtual void Interact(Transform interactor)
     {
         Debug.Log("Not yet implemented");
     }

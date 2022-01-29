@@ -24,7 +24,7 @@ public class PlayerInteractions : MonoBehaviour
 
         if (currentlySelectedInteractable != null)
         {
-            currentlySelectedInteractable.Interact();
+            currentlySelectedInteractable.Interact(transform);
         }
     }
 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PushInteractable : Interactable
 {
-    public Transform playerRef;
-
     public float MoveSpeed = 5.0f;
 
     [SerializeField]
@@ -22,29 +20,26 @@ public class PushInteractable : Interactable
         targetPosition = transform.position;
     }
 
-    private void GetPushPullDirection()
-    {
-        pushDirection = (transform.position - playerRef.transform.position);
-        if (Mathf.Abs(pushDirection.z) > Mathf.Abs(pushDirection.x))
-        {
-            pushDirection = new Vector3(0, 0, pushDirection.z).normalized;
-        }
-        else
-        {
-            pushDirection = new Vector3(pushDirection.x, 0, 0).normalized;
-        }
-    }
-
-    public override void Interact()
+    public override void Interact(Transform interactor)
     {
         Debug.Log("interacting with " + gameObject.name);
-        Push();
+        Push(interactor);
     }
 
-    public void Push()
+    public void Push(Transform interactor)
     {
         if (!moving)
         {
+            pushDirection = (transform.position - interactor.position);
+            if (Mathf.Abs(pushDirection.z) > Mathf.Abs(pushDirection.x))
+            {
+                pushDirection = new Vector3(0, 0, pushDirection.z).normalized;
+            }
+            else
+            {
+                pushDirection = new Vector3(pushDirection.x, 0, 0).normalized;
+            }
+
             targetPosition = transform.position + pushDirection;
             moving = true;
         }
@@ -53,8 +48,6 @@ public class PushInteractable : Interactable
     // Update is called once per frame
     void Update()
     {
-        GetPushPullDirection();
-
         if (moving)
         {
             transform.position = targetPosition;
