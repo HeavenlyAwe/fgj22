@@ -6,8 +6,11 @@ public class CameraMovement : MonoBehaviour
 {
     public Vector3 offset = new Vector3(0, 5, -10);
     public Transform[] followTransforms;
+    public float smoothSpeed = 1.0f;
     
     private Camera mainCamera;
+
+    private Vector3 _velocity = Vector3.zero;
 
     void Start()
     {
@@ -23,7 +26,12 @@ public class CameraMovement : MonoBehaviour
             lookAtPosition += t.position;
         }
         lookAtPosition /= followTransforms.Length;
-
-        mainCamera.transform.position = lookAtPosition + offset;
+        
+        // Emils code begin
+        Vector3 desiredPosition = lookAtPosition + offset;
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, desiredPosition, ref _velocity, smoothSpeed);
+        // Emils code end
+        
+        //mainCamera.transform.position = lookAtPosition + offset;
     }
 }

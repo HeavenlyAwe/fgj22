@@ -113,8 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  currentFollowing: 0
-  followerSpeed: 1
+  currentFollowing: 1
+  followerSpeed: 3
   roamingRadius: 10
   neutralFollower: {fileID: 8571535684927335280}
   fireFollower: {fileID: 3127341931425816765}

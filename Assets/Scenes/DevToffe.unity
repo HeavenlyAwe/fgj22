@@ -889,3 +889,4 @@ MonoBehaviour:
   followTransforms:
   - {fileID: 76719443}
   - {fileID: 1030965627}
+  smoothSpeed: 0.5
