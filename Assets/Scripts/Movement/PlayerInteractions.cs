@@ -11,6 +11,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private Interactable currentlySelectedInteractable = null;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +20,13 @@ public class PlayerInteractions : MonoBehaviour
 
     public void OnFire(InputValue inputValue)
     {
+        Debug.Log("Doing stuff...");
+
         if (currentlySelectedInteractable != null)
         {
             currentlySelectedInteractable.Interact();
         }
     }
-
-    Color originalColor;
 
     // Update is called once per frame
     void Update()
@@ -41,7 +42,7 @@ public class PlayerInteractions : MonoBehaviour
 
         if (currentlySelectedInteractable != null)
         {
-            currentlySelectedInteractable.gameObject.GetComponent<Renderer>().material.color = originalColor;
+            currentlySelectedInteractable.Unhighlight();
         }
         currentlySelectedInteractable = null;
 
@@ -51,9 +52,7 @@ public class PlayerInteractions : MonoBehaviour
             //distanceToObstacle = hit.distance;
             //Debug.Log(hit);
             currentlySelectedInteractable = hit.transform.gameObject.GetComponent<Interactable>();
-
-            originalColor = currentlySelectedInteractable.gameObject.GetComponent<Renderer>().material.color;
-            currentlySelectedInteractable.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+            currentlySelectedInteractable.Highlight();
         }
     }
 

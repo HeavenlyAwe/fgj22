@@ -18,6 +18,7 @@ public class PullInteractable : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         targetPosition = transform.position;
     }
 

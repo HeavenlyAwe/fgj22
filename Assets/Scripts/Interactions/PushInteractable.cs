@@ -18,6 +18,7 @@ public class PushInteractable : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         targetPosition = transform.position;
     }
 
@@ -36,6 +37,7 @@ public class PushInteractable : Interactable
 
     public override void Interact()
     {
+        Debug.Log("interacting with " + gameObject.name);
         Push();
     }
 
