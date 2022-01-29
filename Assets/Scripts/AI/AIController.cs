@@ -26,11 +26,15 @@ public class AIController : MonoBehaviour
     }
 
     [Header("States")]
+    [Tooltip("Current moving state follower is in")]
     public State state;
+    [Tooltip("What this follower follows")]
     public Following currentFollowing = Following.Neutral;
 
     [Header("Movement")] 
+    [Tooltip("Speed with which follower moves")]
     public float followerSpeed = 1.0f;
+    [Tooltip("How far the follower can move from its anchor point when roaming")]
     public float roamingRadius = 5.0f;
 
     [Header("Follower Prefabs")] 
@@ -50,7 +54,7 @@ public class AIController : MonoBehaviour
     {
         _anchorPoint = transform.position;
         _navMeshAgent.speed = followerSpeed;
-        changeFollowing(currentFollowing);
+        changeFollowingState(currentFollowing);
     }
 
     // Update is called once per frame
@@ -71,7 +75,7 @@ public class AIController : MonoBehaviour
     }
 
     // Function for updating this followers current following
-    public void changeFollowing(Following newFollowing)
+    public void changeFollowingState(Following newFollowing)
     {
         // This is lazy code
         neutralFollower.SetActive(false);
@@ -83,7 +87,6 @@ public class AIController : MonoBehaviour
         if (newFollowing==Following.Water) waterFollower.SetActive(true);
 
         currentFollowing = newFollowing;
-
     }
     
     // Function for moving follower randomly within an "anchor" unit circle
@@ -104,8 +107,7 @@ public class AIController : MonoBehaviour
 
         // If a random point on the navmesh was found, move follower to that position.
         _navMeshAgent.destination = hit.position;
-        
-        return;
     }
+    
 
 }
