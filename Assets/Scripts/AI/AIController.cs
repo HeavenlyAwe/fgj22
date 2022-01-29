@@ -101,8 +101,9 @@ public class AIController : MonoBehaviour
             }
             else
             {
-                GameObject fightingCloud = Instantiate(fightingCloudPrefab, fightPosition + relativePos.normalized * fightCloudOffsetTowardsCamera, rotation);
-                ChangeState(State.Die);
+                ChangeState(State.Idle);
+                //GameObject fightingCloud = Instantiate(fightingCloudPrefab, fightPosition + relativePos.normalized * fightCloudOffsetTowardsCamera, rotation);
+                //ChangeState(State.Die);
             }
         }
 
@@ -240,6 +241,12 @@ public class AIController : MonoBehaviour
         Transform foundFollower = null;
         foreach (var hitCollider in _fightRadiusColliders)
         {
+            // Stop searching if another entity found me
+            if (hasEnemyAggro)
+            {
+                return;
+            }
+
             // Check if the found collider is a follower
             if (hitCollider.gameObject.CompareTag("Follower")) { foundFollower = hitCollider.transform; }
             else { continue; }
@@ -251,7 +258,7 @@ public class AIController : MonoBehaviour
             if (foundFollowerAic.faction == Faction.Neutral) continue;
 
             // If the found follower is of other faction, "fight" the follower
-            if (foundFollowerAic.faction != faction && foundFollowerAic.faction != Faction.Neutral)
+            if (foundFollowerAic.faction != faction)
             {
                 if (!foundFollowerAic.hasEnemyAggro)
                 {
@@ -261,19 +268,6 @@ public class AIController : MonoBehaviour
                     hasEnemyAggro = true;
                 }
             }
-
-            float distanceToEnemy = Mathf.Infinity;
-            if (_foundEnemy != null)
-            {
-                distanceToEnemy = (_foundEnemy.position - transform.position).magnitude;
-            }
-
-            // If an enemy is too close, set this follower to die
-            if (distanceToEnemy < 1.75f)
-            {
-                ChangeState(State.Die);
-            }
-
         }
     }
 
