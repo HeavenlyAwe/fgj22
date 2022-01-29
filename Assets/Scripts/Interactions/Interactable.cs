@@ -10,7 +10,6 @@ public abstract class Interactable : MonoBehaviour
     protected void Start()
     {
         originalColor = gameObject.GetComponent<Renderer>().material.color;
-        Debug.Log(originalColor);
     }
 
     public void Highlight()
