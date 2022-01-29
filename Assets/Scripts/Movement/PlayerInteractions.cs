@@ -20,40 +20,40 @@ public class PlayerInteractions : MonoBehaviour
 
     public void OnFire(InputValue inputValue)
     {
-        Debug.Log("Doing stuff...");
+        //Debug.Log("Doing stuff...");
 
-        if (currentlySelectedInteractable != null)
-        {
-            currentlySelectedInteractable.Interact(transform);
-        }
+        //if (currentlySelectedInteractable != null)
+        //{
+        //    currentlySelectedInteractable.Interact(transform);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(interactables.Count);
+        ////Debug.Log(interactables.Count);
 
-        RaycastHit hit;
+        //RaycastHit hit;
 
-        Vector3 origin = transform.position + characterController.center;
-        //float distanceToObstacle = 0;
+        //Vector3 origin = transform.position + characterController.center;
+        ////float distanceToObstacle = 0;
 
-        //Debug.DrawRay(origin, transform.forward, Color.blue, 2f, true);
+        ////Debug.DrawRay(origin, transform.forward, Color.blue, 2f, true);
 
-        if (currentlySelectedInteractable != null)
-        {
-            currentlySelectedInteractable.Unhighlight();
-        }
-        currentlySelectedInteractable = null;
+        //if (currentlySelectedInteractable != null)
+        //{
+        //    currentlySelectedInteractable.Unhighlight();
+        //}
+        //currentlySelectedInteractable = null;
 
-        LayerMask mask = LayerMask.GetMask("Interactables");
-        if (Physics.SphereCast(origin, characterController.height / 2, transform.forward, out hit, visionRange, mask))
-        {
-            //distanceToObstacle = hit.distance;
-            //Debug.Log(hit);
-            currentlySelectedInteractable = hit.transform.gameObject.GetComponent<Interactable>();
-            currentlySelectedInteractable.Highlight();
-        }
+        //LayerMask mask = LayerMask.GetMask("Interactables");
+        //if (Physics.SphereCast(origin, characterController.height / 2, transform.forward, out hit, visionRange, mask))
+        //{
+        //    //distanceToObstacle = hit.distance;
+        //    //Debug.Log(hit);
+        //    currentlySelectedInteractable = hit.transform.gameObject.GetComponent<Interactable>();
+        //    currentlySelectedInteractable.Highlight();
+        //}
     }
 
     //void OnDrawGizmos()

@@ -7,7 +7,20 @@ public abstract class Interactable : MonoBehaviour
     public Color highlightColor = Color.yellow;
     private Color originalColor;
 
-    protected void Start()
+    private bool reserved;
+    public bool Reserved
+    {
+        private set
+        {
+            reserved = value;
+        }
+        get
+        {
+            return reserved;
+        }
+    }
+
+    void Awake()
     {
         originalColor = gameObject.GetComponent<Renderer>().material.color;
     }
@@ -22,8 +35,25 @@ public abstract class Interactable : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.color = originalColor;
     }
 
+    public void Grab()
+    {
+        Reserved = true;
+    }
+
+    public void Release()
+    {
+        Reserved = false;
+    }
+
+    public virtual void Interact(Vector3 moveOffset)
+    {
+        Debug.Log("'Interact(Vector3 moveOffset)' Not yet implemented...");
+    }
+
     public virtual void Interact(Transform interactor)
     {
-        Debug.Log("Not yet implemented");
+        Debug.Log("'Interact(Transform interactor)' Not yet implemented...");
     }
+
+    public abstract bool IsGrabbable();
 }

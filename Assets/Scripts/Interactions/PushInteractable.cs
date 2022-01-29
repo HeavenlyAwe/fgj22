@@ -16,7 +16,6 @@ public class PushInteractable : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        base.Start();
         targetPosition = transform.position;
     }
 
@@ -53,5 +52,10 @@ public class PushInteractable : Interactable
             transform.position = targetPosition;
             moving = false;
         }
+    }
+
+    public override bool IsGrabbable()
+    {
+        return false;
     }
 }
