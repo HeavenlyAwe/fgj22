@@ -22,7 +22,7 @@ public class AIController : MonoBehaviour
     // Factions that the follower can be part of
     public enum Faction
     {
-        Neutral, 
+        Neutral,
         Fire,
         Water,
     }
@@ -32,21 +32,21 @@ public class AIController : MonoBehaviour
 
     public Faction faction = Faction.Neutral;
 
-    [Header("Movement")] 
+    [Header("Movement")]
     [Tooltip("Speed with which follower moves")]
     public float followerSpeed = 3.0f;
     [Tooltip("How far the follower can move from its anchor point when roaming")]
     public float roamingRadius = 5.0f;
 
-    [Header("Follower Prefabs")] 
+    [Header("Follower Prefabs")]
     public GameObject neutralFollower;
     public GameObject fireFollower;
     public GameObject waterFollower;
-    
+
     private NavMeshAgent _navMeshAgent;
     private Vector3 _anchorPoint;
     private Transform _playerTransform = null;
-    
+
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -101,8 +101,9 @@ public class AIController : MonoBehaviour
                 break;
         }
 
+        faction = newFaction;
     }
-    
+
     // Function for moving follower randomly within an "anchor" unit circle
     private void RandomMove()
     {
@@ -122,14 +123,14 @@ public class AIController : MonoBehaviour
         // If a random point on the navmesh was found, move follower to that position.
         _navMeshAgent.destination = hit.position;
     }
-    
+
     // Function for moving follower to current faction leader
     private void FollowPlayerMove()
     {
-        
-        // If follower would still try to FollowMove() when neutral, set the state to roam, 
+
+        // If follower would still try to FollowMove() when neutral, set the state to roam,
         // else find player to follow
-        switch (faction) 
+        switch (faction)
         {
             case Faction.Neutral:
                 _playerTransform = null;
@@ -148,11 +149,11 @@ public class AIController : MonoBehaviour
             state = State.Roam;
             return;
         }
-        
+
         _navMeshAgent.destination = _playerTransform.position;
         transform.LookAt(_playerTransform);
 
     }
-    
+
 
 }
