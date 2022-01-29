@@ -8,13 +8,15 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    
+
     public float playerSpeed = 2.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
 
     // This allows the player to perform multiple jumps if necessary
     public int maxNumberOfJumps = 1;
+
+    public float influenceRange = 5;
 
     private int jumpsRemaining = 0;
     private bool jumping = false;
@@ -41,7 +43,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
-        Debug.Log(gameObject.name + ", " + gameObject.tag);
+        Vector3 center = gameObject.transform.position;
+        Collider[] hitColliders = Physics.OverlapSphere(center, influenceRange);
+        foreach (var hitCollider in hitColliders)
+        {
+            AIController aic = hitCollider.gameObject.GetComponent<AIController>();
+            if (aic != null)
+            {
+                if (gameObject.CompareTag("Fire"))
+                    aic.changeFaction(AIController.Faction.Fire);
+                else if (gameObject.CompareTag("Water"))
+                    aic.changeFaction(AIController.Faction.Water);
+            }
+        }
     }
 
     void Update()
