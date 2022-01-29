@@ -50,8 +50,9 @@ public class AIController : MonoBehaviour
 
     private NavMeshAgent _navMeshAgent;
     private Vector3 _anchorPoint;
-    private Transform _playerTransform = null;
-    private Collider[] _fightRadiusColliders = null;
+    private Transform _playerTransform;
+    private Collider[] _fightRadiusColliders;
+    private Transform _foundEnemy = null;
 
     private void Awake()
     {
@@ -69,9 +70,11 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         // Scan for followers of other factions to fight (unless neutral or already fighting)
-        if ( (faction!=Faction.Neutral) && (state != State.Fight) && (state != State.Die) ) ScanForEnemies();
+        if (faction!=Faction.Neutral) ScanForEnemies();
+
+        // If the state has been set to fight but no fightable enemy is to be found, return to following
+        if (state == State.Fight && _foundEnemy == null) state = State.Follow;
         
         // Movement behaviour for follower
         switch (state)
@@ -85,10 +88,10 @@ public class AIController : MonoBehaviour
                 FollowPlayerMove();
                 break;
             case State.Fight:
-                if (_navMeshAgent.remainingDistance < _navMeshAgent.stoppingDistance) state = State.Die;
+                Fight();
                 break;
             case State.Die:
-                Destroy(this.gameObject);
+                Die();
                 break;
         }
         
@@ -123,6 +126,7 @@ public class AIController : MonoBehaviour
 
     public void ChangeState(State newState)
     {
+        _navMeshAgent.ResetPath();
         switch (newState)
         {
             case State.Idle:
@@ -134,7 +138,7 @@ public class AIController : MonoBehaviour
                 _navMeshAgent.stoppingDistance = 2.5f;
                 break;
             case State.Fight:
-                _navMeshAgent.stoppingDistance = 1.0f;
+                _navMeshAgent.stoppingDistance = 0.0f;
                 break;
             case State.Die:
                 break;
@@ -166,9 +170,6 @@ public class AIController : MonoBehaviour
     // Function for moving follower to current faction leader
     private void FollowPlayerMove()
     {
-        
-        
-
         // If follower would still try to FollowMove() when neutral, set the state to roam,
         // else find player to follow
         switch (faction)
@@ -197,7 +198,6 @@ public class AIController : MonoBehaviour
         // Update the _navMeshAgent destination to the player position
         _navMeshAgent.destination = _playerTransform.position;
         
-        
     }
 
     // Function for scanning surroundings for other followers
@@ -217,27 +217,41 @@ public class AIController : MonoBehaviour
             // If the found follower was neutral, skip it
             if (foundFollowerAic.faction == Faction.Neutral) continue;
             
-            // If the found follower is of other faction, and not already fighting, fight the follower!
-            if ((foundFollowerAic.faction != faction) && (foundFollowerAic.state != State.Fight))
+            // If the found follower is of other faction, "fight" the follower
+            if (foundFollowerAic.faction != faction && foundFollowerAic.faction != Faction.Neutral)
             {
-                MoveToFightFollower(foundFollowerAic);
+                state = State.Fight;
+                _foundEnemy = foundFollower;
+            }
+
+            float distanceToEnemy = Mathf.Infinity;
+            if (_foundEnemy != null)
+            {
+                distanceToEnemy = (_foundEnemy.position - transform.position).magnitude;
+            }
+
+            // If an enemy is too close, set this follower to die
+            if (distanceToEnemy < 1.75f)
+            {
+                ChangeState(State.Die);
             }
             
         }
     }
 
-    // Function to make follower move towards fight partner
-    private void MoveToFightFollower(AIController followerToFightAic)
+    private void Fight()
     {
-        // Set this follower to fight mode
-        state = State.Fight;
+        if (_foundEnemy == null) return;
         
-        // If the found follower is not in fight mode, make it fight this follower
-        if (followerToFightAic.state != State.Fight) followerToFightAic.MoveToFightFollower(this);
-
-        // Move to follower to fight
-        _navMeshAgent.destination = followerToFightAic.transform.position;
-
+        // Update the _navMeshAgent destination to the enemy position
+        _navMeshAgent.destination = _foundEnemy.position;
     }
-    
+
+    // Function for killing off this follower
+    private void Die()
+    {
+        Destroy(this.gameObject);
+    }
+
+
 }
