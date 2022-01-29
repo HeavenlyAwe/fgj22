@@ -22,8 +22,13 @@ public class PullInteractable : Interactable
     //    targetPosition = transform.position;
     //}
 
-    public override void Interact(Transform interactor)
+    public override bool Interact(Transform interactor, int factionSize)
     {
+        if (!base.Interact(interactor, factionSize))
+        {
+            return false;
+        }
+
         //Pull(interactor);
 
         //if (!moving)
@@ -40,8 +45,9 @@ public class PullInteractable : Interactable
         pullDirection = -pushDirection;
 
         transform.position += pullDirection;
-            //moving = true;
+        //moving = true;
         //}
+        return true;
     }
 
     //public void Pull(Transform interactorTransform)

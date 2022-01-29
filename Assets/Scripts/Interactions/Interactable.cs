@@ -19,6 +19,9 @@ public abstract class Interactable : MonoBehaviour
         }
     }
 
+    public int factionSizeLimit = 1;
+
+
     void Awake()
     {
         originalColor = gameObject.GetComponent<Renderer>().material.color;
@@ -44,15 +47,18 @@ public abstract class Interactable : MonoBehaviour
         Reserved = false;
     }
 
-    public virtual void Interact(Vector3 moveOffset)
+
+    public virtual bool Interact(Vector3 moveOffset, int factionSize)
     {
-        Debug.Log("'Interact(Vector3 moveOffset)' Not yet implemented...");
+        return factionSize >= factionSizeLimit;
     }
 
-    public virtual void Interact(Transform interactor)
+
+    public virtual bool Interact(Transform interactor, int factionSize)
     {
-        Debug.Log("'Interact(Transform interactor)' Not yet implemented...");
+        return factionSize >= factionSizeLimit;
     }
+
 
     public abstract bool IsGrabbable();
 }

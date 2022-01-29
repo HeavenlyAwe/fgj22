@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class MovableInteractable : Interactable
 {
-    public override void Interact(Vector3 moveOffset)
+    public override bool Interact(Vector3 moveOffset, int factionSize)
     {
+        if (!base.Interact(moveOffset, factionSize))
+        {
+            return false;
+        }
+
         transform.position += moveOffset;
+
+        return true;
     }
 
     public override bool IsGrabbable()

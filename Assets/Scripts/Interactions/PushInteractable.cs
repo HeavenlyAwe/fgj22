@@ -22,8 +22,13 @@ public class PushInteractable : Interactable
     //    targetPosition = transform.position;
     //}
 
-    public override void Interact(Transform interactor)
+    public override bool Interact(Transform interactor, int factionSize)
     {
+        if (!base.Interact(interactor, factionSize))
+        {
+            return false;
+        }
+
         //Debug.Log("interacting with " + gameObject.name);
         //Push(interactor);
 
@@ -38,6 +43,8 @@ public class PushInteractable : Interactable
         }
 
         transform.position += pushDirection;
+
+        return true;
     }
 
     //public void Push(Transform interactor)
