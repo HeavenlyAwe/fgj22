@@ -5,12 +5,29 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public Vector3 offset = new Vector3(0, 5, -10);
-    public Transform[] followTransforms;
     public float smoothSpeed = 1.0f;
-    
+
+    private Transform[] followTransforms;
+
     private Camera mainCamera;
 
     private Vector3 _velocity = Vector3.zero;
+
+
+    private void LookupAllPlayers()
+    {
+        PlayerMovement[] players = (PlayerMovement[])GameObject.FindObjectsOfType(typeof(PlayerMovement));
+        followTransforms = new Transform[players.Length];
+        for(int i = 0; i < players.Length; i++)
+        {
+            followTransforms[i] = players[i].transform;
+        }
+    }
+
+    void Awake()
+    {
+        LookupAllPlayers();
+    }
 
     void Start()
     {
