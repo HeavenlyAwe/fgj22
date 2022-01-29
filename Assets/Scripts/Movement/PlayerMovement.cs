@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 2.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
+    public Color highlightColor;
 
     // This allows the player to perform multiple jumps if necessary
     public int maxNumberOfJumps = 1;
@@ -48,8 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (interactableGrabbed)
         {
-            Debug.Log(inputVec);
             currentlySelectedInteractable.Interact(new Vector3(inputVec.x, 0, inputVec.y));
+
+            // Do not move if grabbing anything
+            move = Vector3.zero;
+
             return;
         }
 
@@ -58,8 +62,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
-        Debug.Log("Doing stuff...");
-
+        //
+        // Perform actions/interaction
+        //
         if (currentlySelectedInteractable != null)
         {
             if (currentlySelectedInteractable.IsGrabbable() && !interactableGrabbed)
@@ -78,6 +83,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //
+        // Attract followers
+        //
         Vector3 center = gameObject.transform.position;
         Collider[] hitColliders = Physics.OverlapSphere(center, influenceRange);
         foreach (var hitCollider in hitColliders)
@@ -119,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //distanceToObstacle = hit.distance;
             currentlySelectedInteractable = hit.transform.gameObject.GetComponent<Interactable>();
-            currentlySelectedInteractable.Highlight();
+            currentlySelectedInteractable.Highlight(highlightColor);
         }
     }
 

@@ -1273,7 +1273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  MoveSpeed: 5
   pushDirection: {x: 0, y: 0, z: 0}
 --- !u!65 &1452056773
 BoxCollider:

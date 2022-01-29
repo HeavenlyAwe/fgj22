@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public Color highlightColor = Color.yellow;
     private Color originalColor;
 
     private bool reserved;
@@ -25,7 +24,7 @@ public abstract class Interactable : MonoBehaviour
         originalColor = gameObject.GetComponent<Renderer>().material.color;
     }
 
-    public void Highlight()
+    public void Highlight(Color highlightColor)
     {
         gameObject.GetComponent<Renderer>().material.color = highlightColor;
     }
