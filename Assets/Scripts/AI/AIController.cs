@@ -54,6 +54,8 @@ public class AIController : MonoBehaviour
     private Collider[] _fightRadiusColliders;
     private Transform _foundEnemy = null;
 
+    private bool hasEnemyAggro = false;
+
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -71,11 +73,22 @@ public class AIController : MonoBehaviour
     void Update()
     {
         // Scan for followers of other factions to fight (unless neutral or already fighting)
-        if (faction!=Faction.Neutral) ScanForEnemies();
+        if (faction != Faction.Neutral && (state != State.Fight || state == State.Die))
+        {
+            ScanForEnemies();
+        }
+        else if (state == State.Fight)
+        {
+            float distance = (_foundEnemy.position - transform.position).magnitude;
+            if (distance < 1.0f)
+            {
+                ChangeState(State.Die);
+            }
+        }
 
         // If the state has been set to fight but no fightable enemy is to be found, return to following
         if (state == State.Fight && _foundEnemy == null) state = State.Follow;
-        
+
         // Movement behaviour for follower
         switch (state)
         {
@@ -94,7 +107,7 @@ public class AIController : MonoBehaviour
                 Die();
                 break;
         }
-        
+
     }
 
     // Function for updating this followers current faction
@@ -119,7 +132,7 @@ public class AIController : MonoBehaviour
                 break;
         }
         faction = newFaction;
-        
+
         // On a faction change, start immediately following new leader
         ChangeState(State.Follow);
     }
@@ -145,7 +158,7 @@ public class AIController : MonoBehaviour
         }
 
         state = newState;
-    } 
+    }
 
     // Function for moving follower randomly within an "anchor" unit circle
     private void RandomMove()
@@ -197,7 +210,7 @@ public class AIController : MonoBehaviour
 
         // Update the _navMeshAgent destination to the player position
         _navMeshAgent.destination = _playerTransform.position;
-        
+
     }
 
     // Function for scanning surroundings for other followers
@@ -208,20 +221,25 @@ public class AIController : MonoBehaviour
         foreach (var hitCollider in _fightRadiusColliders)
         {
             // Check if the found collider is a follower
-            if (hitCollider.gameObject.CompareTag("Follower")) {foundFollower = hitCollider.transform;}
-            else {continue;}
+            if (hitCollider.gameObject.CompareTag("Follower")) { foundFollower = hitCollider.transform; }
+            else { continue; }
 
             // Get the found follower AIController
             var foundFollowerAic = foundFollower.GetComponent<AIController>();
 
             // If the found follower was neutral, skip it
             if (foundFollowerAic.faction == Faction.Neutral) continue;
-            
+
             // If the found follower is of other faction, "fight" the follower
             if (foundFollowerAic.faction != faction && foundFollowerAic.faction != Faction.Neutral)
             {
-                state = State.Fight;
-                _foundEnemy = foundFollower;
+                if (!foundFollowerAic.hasEnemyAggro)
+                {
+                    ChangeState(State.Fight);
+                    _foundEnemy = foundFollower;
+                    foundFollowerAic.SetFoundEnemy(this);
+                    hasEnemyAggro = true;
+                }
             }
 
             float distanceToEnemy = Mathf.Infinity;
@@ -235,14 +253,14 @@ public class AIController : MonoBehaviour
             {
                 ChangeState(State.Die);
             }
-            
+
         }
     }
 
     private void Fight()
     {
         if (_foundEnemy == null) return;
-        
+
         // Update the _navMeshAgent destination to the enemy position
         _navMeshAgent.destination = _foundEnemy.position;
     }
@@ -253,5 +271,10 @@ public class AIController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-
+    public void SetFoundEnemy(AIController other)
+    {
+        _foundEnemy = other.transform;
+        ChangeState(State.Fight);
+        hasEnemyAggro = true;
+    }
 }
