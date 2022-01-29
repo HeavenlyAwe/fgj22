@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour
+public class InteractablePressurePlate : MonoBehaviour
 {
     public Interactable keyItem;
     public Color highlightColor;
@@ -21,6 +21,8 @@ public class PressurePlate : MonoBehaviour
             if (!hasTriggered && hit.collider.gameObject == keyItem.gameObject)
             {
                 hasTriggered = true;
+
+                if (keyItem)
                 //Debug.Log("Correct object!");
                 keyItem.Highlight(highlightColor);
                 if (callbackAction != null)
