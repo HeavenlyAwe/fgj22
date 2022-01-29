@@ -18,6 +18,7 @@ public class AIController : MonoBehaviour
         Die,
     }
 
+    // Factions that the follower can be part of
     public enum Faction
     {
         Neutral, 
@@ -43,6 +44,7 @@ public class AIController : MonoBehaviour
     
     private NavMeshAgent _navMeshAgent;
     private Vector3 _anchorPoint;
+    private Transform _playerTransform = null;
     
     private void Awake()
     {
@@ -53,14 +55,14 @@ public class AIController : MonoBehaviour
     {
         _anchorPoint = transform.position;
         _navMeshAgent.speed = followerSpeed;
-        changeFaction(faction);
+        ChangeFaction(faction);
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        // State machine for follower
+        // Movement state machine for follower
         switch (state)
         {
             case State.Roam:
@@ -73,14 +75,15 @@ public class AIController : MonoBehaviour
         }
     }
 
-    // Function for updating this followers current following
-    public void changeFaction(Faction newFaction)
+    // Function for updating this followers current faction
+    public void ChangeFaction(Faction newFaction)
     {
-        // This is lazy code
+        // Disable old follower faction (lazy code)
         neutralFollower.SetActive(false);
         fireFollower.SetActive(false);
         waterFollower.SetActive(false);
 
+        // Activate the corresponding graphics for the new faction
         switch (newFaction)
         {
             case Faction.Neutral:
@@ -114,6 +117,28 @@ public class AIController : MonoBehaviour
 
         // If a random point on the navmesh was found, move follower to that position.
         _navMeshAgent.destination = hit.position;
+    }
+    
+    // Function for moving follower to current faction leader
+    private void FollowMove()
+    {
+        switch (faction) 
+        {
+            // If follower would still try to FollowMove() when neutral, set the state to roam
+            case Faction.Neutral:
+                _playerTransform = null;
+                state = State.Roam;
+                break;
+            case Faction.Fire:
+                _playerTransform = GameObject.FindWithTag("Fire").transform;
+                break;
+            case Faction.Water:
+                _playerTransform = GameObject.FindWithTag("Fire").transform;
+                break;
+        }
+        
+        
+        
     }
     
 

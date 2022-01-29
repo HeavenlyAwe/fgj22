@@ -258,6 +258,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: faction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: following
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
       value: 0
       objectReference: {fileID: 0}
@@ -1174,6 +1182,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: faction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: following
+      value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
       value: 0
       objectReference: {fileID: 0}
@@ -1726,6 +1742,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: faction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
       value: 0
       objectReference: {fileID: 0}
@@ -1975,6 +1995,10 @@ PrefabInstance:
     - target: {fileID: 2891025609384607702, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: faction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
