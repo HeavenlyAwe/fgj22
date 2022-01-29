@@ -56,6 +56,9 @@ public class AIController : MonoBehaviour
 
     private bool hasEnemyAggro = false;
 
+    public GameObject fightingCloudPrefab;
+    public float fightCloudOffsetTowardsCamera = 2.5f;
+
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -69,6 +72,7 @@ public class AIController : MonoBehaviour
         ChangeState(state);
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -79,9 +83,25 @@ public class AIController : MonoBehaviour
         }
         else if (state == State.Fight)
         {
-            float distance = (_foundEnemy.position - transform.position).magnitude;
-            if (distance < 1.0f)
+            Vector3 relativePos = Camera.main.transform.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+
+            Vector3 fightPosition = transform.position;
+
+            if (_foundEnemy != null)
             {
+                float distance = (_foundEnemy.position - transform.position).magnitude;
+                if (distance < 1.0f)
+                {
+                    fightPosition = (_foundEnemy.position + transform.position) / 2;
+
+                    GameObject fightingCloud = Instantiate(fightingCloudPrefab, fightPosition + relativePos.normalized * fightCloudOffsetTowardsCamera, rotation);
+                    ChangeState(State.Die);
+                }
+            }
+            else
+            {
+                GameObject fightingCloud = Instantiate(fightingCloudPrefab, fightPosition + relativePos.normalized * fightCloudOffsetTowardsCamera, rotation);
                 ChangeState(State.Die);
             }
         }
@@ -265,10 +285,17 @@ public class AIController : MonoBehaviour
         _navMeshAgent.destination = _foundEnemy.position;
     }
 
+    IEnumerator DieAnimation()
+    {
+        // TODO: Play sound here
+        yield return new WaitForSeconds(0.75f);
+        Destroy(this.gameObject);
+    }
+
     // Function for killing off this follower
     private void Die()
     {
-        Destroy(this.gameObject);
+        StartCoroutine(DieAnimation());
     }
 
     public void SetFoundEnemy(AIController other)

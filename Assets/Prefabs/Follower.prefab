@@ -120,6 +120,7 @@ MonoBehaviour:
   neutralFollower: {fileID: 8571535684927335280}
   fireFollower: {fileID: 3127341931425816765}
   waterFollower: {fileID: 3483481384968863557}
+  fightingCloudPrefab: {fileID: 1112316291852748765, guid: 02690fb9e8d922e40aef1b8850671170, type: 3}
 --- !u!195 &2891025609384607703
 NavMeshAgent:
   m_ObjectHideFlags: 0
