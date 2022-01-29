@@ -41,7 +41,7 @@ public class AIController : MonoBehaviour
     [Tooltip("How far the follower can move from its anchor point when roaming")]
     public float roamingRadius = 5.0f;
     [Tooltip("Determines how close followers of other factions can come before getting attacked by this follower")]
-    public float fightRadius = 2.0f;
+    public float fightRadius = 5.0f;
 
     [Header("Follower Prefabs")]
     public GameObject neutralFollower;
@@ -71,7 +71,7 @@ public class AIController : MonoBehaviour
     {
         
         // Scan for followers of other factions to fight (unless neutral or already fighting)
-        if ( (faction!=Faction.Neutral) && (state != State.Fight) ) ScanForEnemies();
+        if ( (faction!=Faction.Neutral) && (state != State.Fight) && (state != State.Die) ) ScanForEnemies();
         
         // Movement behaviour for follower
         switch (state)
@@ -84,7 +84,11 @@ public class AIController : MonoBehaviour
             case State.Follow:
                 FollowPlayerMove();
                 break;
+            case State.Fight:
+                if (_navMeshAgent.remainingDistance < _navMeshAgent.stoppingDistance) state = State.Die;
+                break;
             case State.Die:
+                Destroy(this.gameObject);
                 break;
         }
         
@@ -128,6 +132,9 @@ public class AIController : MonoBehaviour
                 break;
             case State.Follow:
                 _navMeshAgent.stoppingDistance = 2.5f;
+                break;
+            case State.Fight:
+                _navMeshAgent.stoppingDistance = 1.0f;
                 break;
             case State.Die:
                 break;
@@ -187,7 +194,7 @@ public class AIController : MonoBehaviour
         // If within the stopping distance of player look at player (follower stops moving)
         if (_navMeshAgent.remainingDistance < _navMeshAgent.stoppingDistance) transform.LookAt(_playerTransform);
 
-            // Update the _navMeshAgent destination to the player position
+        // Update the _navMeshAgent destination to the player position
         _navMeshAgent.destination = _playerTransform.position;
         
         
@@ -213,14 +220,24 @@ public class AIController : MonoBehaviour
             // If the found follower is of other faction, and not already fighting, fight the follower!
             if ((foundFollowerAic.faction != faction) && (foundFollowerAic.state != State.Fight))
             {
-                FightFollower(foundFollowerAic);
+                MoveToFightFollower(foundFollowerAic);
             }
             
         }
     }
 
-    private void FightFollower(AIController followerToFight)
+    // Function to make follower move towards fight partner
+    private void MoveToFightFollower(AIController followerToFightAic)
     {
-        print("Fighting: " + faction.ToString() + " " + followerToFight.faction.ToString() );
+        // Set this follower to fight mode
+        state = State.Fight;
+        
+        // If the found follower is not in fight mode, make it fight this follower
+        if (followerToFightAic.state != State.Fight) followerToFightAic.MoveToFightFollower(this);
+
+        // Move to follower to fight
+        _navMeshAgent.destination = followerToFightAic.transform.position;
+
     }
+    
 }

@@ -112,11 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c68db1a2fc10834abe868733a63ee19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   faction: 0
   followerSpeed: 4
   roamingRadius: 5
-  fightRadius: 2
+  fightRadius: 5
   neutralFollower: {fileID: 8571535684927335280}
   fireFollower: {fileID: 3127341931425816765}
   waterFollower: {fileID: 3483481384968863557}
