@@ -52,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
             if (aic != null)
             {
                 if (gameObject.CompareTag("Fire"))
-                    aic.changeFaction(AIController.Faction.Fire);
+                    aic.ChangeFaction(AIController.Faction.Fire);
                 else if (gameObject.CompareTag("Water"))
-                    aic.changeFaction(AIController.Faction.Water);
+                    aic.ChangeFaction(AIController.Faction.Water);
             }
         }
     }

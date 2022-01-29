@@ -13,11 +13,13 @@ public class AIController : MonoBehaviour
     // States for the follower
     public enum State
     {
+        Idle,
         Roam,
         Follow,
         Die,
     }
 
+    // Factions that the follower can be part of
     public enum Faction
     {
         Neutral, 
@@ -26,7 +28,7 @@ public class AIController : MonoBehaviour
     }
 
     [Header("States")]
-    public State state;
+    public State state = State.Roam;
 
     public Faction faction = Faction.Neutral;
 
@@ -43,44 +45,49 @@ public class AIController : MonoBehaviour
     
     private NavMeshAgent _navMeshAgent;
     private Vector3 _anchorPoint;
+    private Transform _playerTransform = null;
     
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.stoppingDistance = 2.5f;
     }
 
     private void Start()
     {
         _anchorPoint = transform.position;
         _navMeshAgent.speed = followerSpeed;
-        changeFaction(faction);
+        ChangeFaction(faction);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        // State machine for follower
+        // Movement behaviour for follower
         switch (state)
         {
+            case State.Idle:
+                break;
             case State.Roam:
                 RandomMove();
                 break;
             case State.Follow:
+                FollowPlayerMove();
                 break;
             case State.Die:
                 break;
         }
     }
 
-    // Function for updating this followers current following
-    public void changeFaction(Faction newFaction)
+    // Function for updating this followers current faction
+    public void ChangeFaction(Faction newFaction)
     {
-        // This is lazy code
+        // Disable old follower faction (lazy code)
         neutralFollower.SetActive(false);
         fireFollower.SetActive(false);
         waterFollower.SetActive(false);
 
+        // Activate the corresponding graphics for the new faction
         switch (newFaction)
         {
             case Faction.Neutral:
@@ -114,6 +121,37 @@ public class AIController : MonoBehaviour
 
         // If a random point on the navmesh was found, move follower to that position.
         _navMeshAgent.destination = hit.position;
+    }
+    
+    // Function for moving follower to current faction leader
+    private void FollowPlayerMove()
+    {
+        
+        // If follower would still try to FollowMove() when neutral, set the state to roam, 
+        // else find player to follow
+        switch (faction) 
+        {
+            case Faction.Neutral:
+                _playerTransform = null;
+                break;
+            case Faction.Fire:
+                _playerTransform = GameObject.FindWithTag("Fire").transform;
+                break;
+            case Faction.Water:
+                _playerTransform = GameObject.FindWithTag("Water").transform;
+                break;
+        }
+
+        // If no player transform was found, return to roaming
+        if (_playerTransform == null)
+        {
+            state = State.Roam;
+            return;
+        }
+        
+        _navMeshAgent.destination = _playerTransform.position;
+        transform.LookAt(_playerTransform);
+
     }
     
 
