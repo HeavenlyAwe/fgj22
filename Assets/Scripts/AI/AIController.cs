@@ -13,6 +13,7 @@ public class AIController : MonoBehaviour
     // States for the follower
     public enum State
     {
+        Idle,
         Roam,
         Follow,
         Die,
@@ -27,7 +28,7 @@ public class AIController : MonoBehaviour
     }
 
     [Header("States")]
-    public State state;
+    public State state = State.Roam;
 
     public Faction faction = Faction.Neutral;
 
@@ -49,6 +50,7 @@ public class AIController : MonoBehaviour
     private void Awake()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.stoppingDistance = 2.5f;
     }
 
     private void Start()
@@ -61,14 +63,16 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        // Movement state machine for follower
+        // Movement behaviour for follower
         switch (state)
         {
+            case State.Idle:
+                break;
             case State.Roam:
                 RandomMove();
                 break;
             case State.Follow:
+                FollowPlayerMove();
                 break;
             case State.Die:
                 break;
@@ -120,25 +124,34 @@ public class AIController : MonoBehaviour
     }
     
     // Function for moving follower to current faction leader
-    private void FollowMove()
+    private void FollowPlayerMove()
     {
+        
+        // If follower would still try to FollowMove() when neutral, set the state to roam, 
+        // else find player to follow
         switch (faction) 
         {
-            // If follower would still try to FollowMove() when neutral, set the state to roam
             case Faction.Neutral:
                 _playerTransform = null;
-                state = State.Roam;
                 break;
             case Faction.Fire:
                 _playerTransform = GameObject.FindWithTag("Fire").transform;
                 break;
             case Faction.Water:
-                _playerTransform = GameObject.FindWithTag("Fire").transform;
+                _playerTransform = GameObject.FindWithTag("Water").transform;
                 break;
         }
+
+        // If no player transform was found, return to roaming
+        if (_playerTransform == null)
+        {
+            state = State.Roam;
+            return;
+        }
         
-        
-        
+        _navMeshAgent.destination = _playerTransform.position;
+        transform.LookAt(_playerTransform);
+
     }
     
 

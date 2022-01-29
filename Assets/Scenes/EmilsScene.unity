@@ -258,6 +258,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
@@ -420,6 +424,10 @@ PrefabInstance:
     - target: {fileID: 2891025609384607702, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
@@ -590,7 +598,7 @@ GameObject:
   - component: {fileID: 899316746}
   m_Layer: 0
   m_Name: Player2 Placeholder
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,6 +663,7 @@ MonoBehaviour:
   jumpHeight: 1
   gravityValue: -9.81
   maxNumberOfJumps: 1
+  influenceRange: 5
 --- !u!136 &899316748
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -863,6 +872,10 @@ PrefabInstance:
     - target: {fileID: 2891025609384607702, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: currentFollowing
@@ -1182,6 +1195,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
@@ -1498,7 +1515,7 @@ GameObject:
   - component: {fileID: 1921618961}
   m_Layer: 0
   m_Name: Player1 Placeholder
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1627,6 +1644,7 @@ MonoBehaviour:
   jumpHeight: 1
   gravityValue: -9.81
   maxNumberOfJumps: 1
+  influenceRange: 5
 --- !u!136 &1921618963
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1740,6 +1758,10 @@ PrefabInstance:
     - target: {fileID: 2891025609384607702, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: faction
@@ -1995,6 +2017,10 @@ PrefabInstance:
     - target: {fileID: 2891025609384607702, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
+      propertyPath: state
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2891025609384607722, guid: 892c5a8fe0ff06643af04e7e8a5a934b, type: 3}
       propertyPath: faction
