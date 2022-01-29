@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PushPullInteractable : MonoBehaviour
+public class PushInteractable : Interactable
 {
     public Transform playerRef;
 
+    public float MoveSpeed = 5.0f;
+
     [SerializeField]
     private Vector3 pushDirection;
-    [SerializeField]
-    private Vector3 pullDirection;
 
     private Vector3 targetPosition;
+
+    private bool moving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +32,20 @@ public class PushPullInteractable : MonoBehaviour
         {
             pushDirection = new Vector3(pushDirection.x, 0, 0).normalized;
         }
-        pullDirection = -pushDirection;
+    }
+
+    public override void Interact()
+    {
+        Push();
     }
 
     public void Push()
     {
-        targetPosition = transform.position + pushDirection;
-    }
-
-    public void Pull()
-    {
-        targetPosition = transform.position + pullDirection;
+        if (!moving)
+        {
+            targetPosition = transform.position + pushDirection;
+            moving = true;
+        }
     }
 
     // Update is called once per frame
@@ -48,6 +53,10 @@ public class PushPullInteractable : MonoBehaviour
     {
         GetPushPullDirection();
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime);
+        if (moving)
+        {
+            transform.position = targetPosition;
+            moving = false;
+        }
     }
 }
