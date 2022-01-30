@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
 
     public Canvas canvasMainMenu;
     public Canvas canvasControllerSetup;
+    public Canvas canvasCredits;
 
     public InputActionAsset firePlayer;
     public InputActionAsset waterPlayer;
@@ -20,6 +21,7 @@ public class Menu : MonoBehaviour
     {
         canvasMainMenu.gameObject.SetActive(true);
         canvasControllerSetup.gameObject.SetActive(false);
+        canvasCredits.gameObject.SetActive(false);
         pressAnyKey = canvasControllerSetup.transform.Find("PressAnyKey").gameObject;
         pressAnyKey.SetActive(false);
 
@@ -41,6 +43,19 @@ public class Menu : MonoBehaviour
     {
         canvasMainMenu.gameObject.SetActive(false);
         canvasControllerSetup.gameObject.SetActive(true);
+    }
+
+    public void Credits()
+    {
+        canvasMainMenu.gameObject.SetActive(false);
+        canvasCredits.gameObject.SetActive(true);
+    }
+
+    public void Back()
+    {
+        canvasControllerSetup.gameObject.SetActive(false);
+        canvasCredits.gameObject.SetActive(false);
+        canvasMainMenu.gameObject.SetActive(true);
     }
 
     public void BindFireKey()
@@ -119,12 +134,6 @@ public class Menu : MonoBehaviour
         });
 
         rebindOperation.Start();
-    }
-
-    public void Back()
-    {
-        canvasControllerSetup.gameObject.SetActive(false);
-        canvasMainMenu.gameObject.SetActive(true);
     }
 
     public void QuitGame()
