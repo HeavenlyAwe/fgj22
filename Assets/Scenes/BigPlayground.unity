@@ -858,6 +858,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4961312655988844390, guid: b790d870a2a6d1f4cbc0b2fd62d633ff, type: 3}
+      propertyPath: footStepSounds.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4961312655988844390, guid: b790d870a2a6d1f4cbc0b2fd62d633ff, type: 3}
+      propertyPath: footStepSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: d62d3f4c4726e634ab8bea121820d59b, type: 3}
+    - target: {fileID: 4961312655988844390, guid: b790d870a2a6d1f4cbc0b2fd62d633ff, type: 3}
+      propertyPath: footStepSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c5821a0d7a7e1114b8776a130c510f9a, type: 3}
+    - target: {fileID: 4961312655988844390, guid: b790d870a2a6d1f4cbc0b2fd62d633ff, type: 3}
+      propertyPath: footStepSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: cd86cfbee771e1c4099f9e6954f89e44, type: 3}
     - target: {fileID: 6065574315392092853, guid: b790d870a2a6d1f4cbc0b2fd62d633ff, type: 3}
       propertyPath: m_Name
       value: PlayerFire

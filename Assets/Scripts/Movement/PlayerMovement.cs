@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     public float influenceRange = 5;
 
+    public AudioClip footStepSound;
+    public AudioSource footStepsAudioSource;
+
     private int jumpsRemaining = 0;
     private bool jumping = false;
     private Vector3 move = Vector3.zero;
@@ -169,6 +172,13 @@ public class PlayerMovement : MonoBehaviour
         {
             //gameObject.transform.forward = move;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * 10.0f);
+            //if (!footStepsAudioSource.isPlaying)
+            //{
+            //    footStepsAudioSource.Play();
+            //}
+        } else
+        {
+            //footStepsAudioSource.Stop();
         }
 
         // Changes the height position of the player..
@@ -181,5 +191,10 @@ public class PlayerMovement : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    }
+
+    public void FootStep()
+    {
+        footStepsAudioSource.PlayOneShot(footStepSound);
     }
 }

@@ -108,6 +108,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6256108099217775271, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 93c877512bf8c8145854af606f7bae6c, type: 3}
+    - target: {fileID: 6700748920085638048, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c5821a0d7a7e1114b8776a130c510f9a, type: 3}
+    - target: {fileID: 7955304193900086297, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
+      propertyPath: footStepSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c5821a0d7a7e1114b8776a130c510f9a, type: 3}
     - target: {fileID: 7955304193900086297, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
       propertyPath: highlightColor.b
       value: 1
@@ -120,6 +132,10 @@ PrefabInstance:
       propertyPath: highlightColor.r
       value: 0.1641509
       objectReference: {fileID: 0}
+    - target: {fileID: 7955304193900086297, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
+      propertyPath: footStepsAudioSource
+      value: 
+      objectReference: {fileID: 30009919149016659}
     - target: {fileID: 9047668904493580574, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
       propertyPath: m_Actions
       value: 
@@ -142,6 +158,11 @@ GameObject:
 --- !u!4 &5251168016844233208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1461610517367911435, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
+  m_PrefabInstance: {fileID: 6671883255657328115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &30009919149016659 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6700748920085638048, guid: f7a0f7857640d2a40b26abf574e236c4, type: 3}
   m_PrefabInstance: {fileID: 6671883255657328115}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6026517446333942483
