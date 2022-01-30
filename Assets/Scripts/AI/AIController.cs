@@ -14,6 +14,7 @@ public class AIController : MonoBehaviour
         Idle,
         Roam,
         Follow,
+        Navigate,
         Die,
         Fight,
     }
@@ -49,6 +50,7 @@ public class AIController : MonoBehaviour
     private Transform _playerTransform;
     private Collider[] _fightRadiusColliders;
     private Transform _foundEnemy = null;
+    private Vector3 _targetPosition;
 
     private bool hasEnemyAggro = false;
 
@@ -117,6 +119,9 @@ public class AIController : MonoBehaviour
             case State.Follow:
                 FollowPlayerMove();
                 break;
+            case State.Navigate:
+                NavigateToPosition();
+                break;
             case State.Fight:
                 foreach (Transform child in transform)
                 {
@@ -173,6 +178,9 @@ public class AIController : MonoBehaviour
                 break;
             case State.Follow:
                 _navMeshAgent.stoppingDistance = 4.0f; // 2.5f;
+                break;
+            case State.Navigate:
+                _navMeshAgent.stoppingDistance = 1.0f;
                 break;
             case State.Fight:
                 _navMeshAgent.stoppingDistance = 0.0f;
@@ -282,6 +290,11 @@ public class AIController : MonoBehaviour
         _navMeshAgent.destination = _foundEnemy.position;
     }
 
+    private void NavigateToPosition()
+    {
+        _navMeshAgent.destination = _targetPosition;
+    }
+
     IEnumerator DieAnimation()
     {
         yield return new WaitForSeconds(0.75f);
@@ -300,5 +313,20 @@ public class AIController : MonoBehaviour
         _foundEnemy = other.transform;
         ChangeState(State.Fight);
         hasEnemyAggro = true;
+    }
+
+
+    IEnumerator MoveIntoPosition(Vector3 position)
+    {
+        _targetPosition = position;
+        ChangeState(State.Navigate);
+        yield return new WaitForSeconds(1.0f);
+        ChangeState(State.Idle);
+    }
+
+    public void StayBehind(Vector3 position)
+    {
+        Debug.Log(gameObject.name + " staying behind");
+        StartCoroutine(MoveIntoPosition(position));
     }
 }
