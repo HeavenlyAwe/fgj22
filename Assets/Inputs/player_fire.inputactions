@@ -1,5 +1,5 @@
 {
-    "name": "player2",
+    "name": "player_fire",
     "maps": [
         {
             "name": "Player",
@@ -221,6 +221,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ef2caf6a-257a-4a38-9d4d-ca2ccbb1e2f2",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bd4f82ff-8b71-4c8e-8189-9ed28a736a15",
                     "path": "<Keyboard>/numpad0",
                     "interactions": "",
@@ -234,6 +245,17 @@
                     "name": "",
                     "id": "3ade8d08-c6bf-4784-972b-c2c3c5df2dd3",
                     "path": "<Keyboard>/rightCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a561cb9-d5c3-4120-a27c-3c15bf39bc09",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

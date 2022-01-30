@@ -1,5 +1,5 @@
 {
-    "name": "player1",
+    "name": "player_water",
     "maps": [
         {
             "name": "Player",
@@ -221,6 +221,17 @@
                 },
                 {
                     "name": "",
+                    "id": "5cf297a3-ec16-4408-a5d2-594329184383",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "eff3adb1-44ff-4381-b222-9380b36b3138",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -234,6 +245,17 @@
                     "name": "",
                     "id": "1c856cdc-c44e-44a0-b2cc-c279615e6ea0",
                     "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5581d6bf-25dd-4a85-9aa7-550acfae92f2",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
