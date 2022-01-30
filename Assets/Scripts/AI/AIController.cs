@@ -288,7 +288,6 @@ public class AIController : MonoBehaviour
 
     IEnumerator DieAnimation()
     {
-        // TODO: Play sound here
         yield return new WaitForSeconds(0.75f);
         FactionSizeCounter.Remove(faction);
         Destroy(this.gameObject);
