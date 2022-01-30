@@ -143,6 +143,9 @@ public class AIController : MonoBehaviour
         fireFollower.SetActive(false);
         waterFollower.SetActive(false);
 
+        FactionSizeCounter.Remove(faction);
+        FactionSizeCounter.Add(newFaction);
+
         // Activate the corresponding graphics for the new faction
         switch (newFaction)
         {
@@ -173,7 +176,7 @@ public class AIController : MonoBehaviour
                 _navMeshAgent.stoppingDistance = 1.0f;
                 break;
             case State.Follow:
-                _navMeshAgent.stoppingDistance = 2.5f;
+                _navMeshAgent.stoppingDistance = 4.0f; // 2.5f;
                 break;
             case State.Fight:
                 _navMeshAgent.stoppingDistance = 0.0f;
@@ -287,6 +290,7 @@ public class AIController : MonoBehaviour
     {
         // TODO: Play sound here
         yield return new WaitForSeconds(0.75f);
+        FactionSizeCounter.Remove(faction);
         Destroy(this.gameObject);
     }
 
