@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour
     public float influenceRange = 5;
 
     public AudioClip footStepSound;
-    public AudioSource footStepsAudioSource;
+    public AudioClip waterFollowerSound;
+    public AudioClip fireFollowerSound;
+    public AudioSource audioSource;
 
     private int jumpsRemaining = 0;
     private bool jumping = false;
@@ -77,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
-
         //
         // Perform actions/interaction
         //
@@ -109,13 +110,15 @@ public class PlayerMovement : MonoBehaviour
             AIController aic = hitCollider.gameObject.GetComponent<AIController>();
             if (aic != null)
             {
-                if (gameObject.CompareTag("Fire"))
+                if (gameObject.CompareTag("Fire") && aic.faction != AIController.Faction.Fire)
                 {
                     aic.ChangeFaction(AIController.Faction.Fire);
+                    audioSource.PlayOneShot(fireFollowerSound);
                 }
-                else if (gameObject.CompareTag("Water"))
+                else if (gameObject.CompareTag("Water") && aic.faction != AIController.Faction.Water)
                 {
                     aic.ChangeFaction(AIController.Faction.Water);
+                    audioSource.PlayOneShot(waterFollowerSound);
                 }
             }
         }
@@ -172,13 +175,6 @@ public class PlayerMovement : MonoBehaviour
         {
             //gameObject.transform.forward = move;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * 10.0f);
-            //if (!footStepsAudioSource.isPlaying)
-            //{
-            //    footStepsAudioSource.Play();
-            //}
-        } else
-        {
-            //footStepsAudioSource.Stop();
         }
 
         // Changes the height position of the player..
@@ -195,6 +191,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void FootStep()
     {
-        footStepsAudioSource.PlayOneShot(footStepSound);
+        audioSource.PlayOneShot(footStepSound);
     }
 }

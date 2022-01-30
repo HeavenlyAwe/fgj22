@@ -53,8 +53,10 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 0, b: 0, a: 0}
   maxNumberOfJumps: 1
   influenceRange: 5
-  footStepSound: {fileID: 0}
-  footStepsAudioSource: {fileID: 0}
+  footStepSound: {fileID: 8300000, guid: d62d3f4c4726e634ab8bea121820d59b, type: 3}
+  waterFollowerSound: {fileID: 8300000, guid: 93c877512bf8c8145854af606f7bae6c, type: 3}
+  fireFollowerSound: {fileID: 8300000, guid: c57e96ae74ca28649b2134427baf4015, type: 3}
+  audioSource: {fileID: 6700748920085638048}
 --- !u!114 &9047668904493580574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +180,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
