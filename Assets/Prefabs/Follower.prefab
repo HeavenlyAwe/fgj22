@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   faction: 0
-  followerSpeed: 4
+  followerSpeed: 9
   roamingRadius: 5
   fightRadius: 5
   neutralFollower: {fileID: 5623092081544484268}
