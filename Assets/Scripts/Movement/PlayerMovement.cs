@@ -29,11 +29,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 move = Vector3.zero;
     private Animator _animator;
 
-    [SerializeField]
-    private int factionSize = 0;
+    private AIController.Faction faction;
 
     private void Start()
     {
+        if (gameObject.CompareTag("Fire"))
+        {
+            faction = AIController.Faction.Fire;
+        }
+        else if (gameObject.CompareTag("Water"))
+        {
+            faction = AIController.Faction.Water;
+        }
         controller = gameObject.GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
     }
@@ -54,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (interactableGrabbed)
         {
-            currentlySelectedInteractable.Interact(new Vector3(inputVec.x, 0, inputVec.y), factionSize);
+            currentlySelectedInteractable.Interact(new Vector3(inputVec.x, 0, inputVec.y), FactionSizeCounter.Value(faction));
 
             // Do not move if grabbing anything
             move = Vector3.zero;
@@ -67,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnFire(InputValue value)
     {
-        
+
         //
         // Perform actions/interaction
         //
@@ -85,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                currentlySelectedInteractable.Interact(transform, factionSize);
+                currentlySelectedInteractable.Interact(transform, FactionSizeCounter.Value(faction));
             }
         }
 
@@ -157,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Update animator to animate running based on speed!
         _animator.SetFloat("Speed", move.magnitude);
-        
+
         if (move != Vector3.zero)
         {
             //gameObject.transform.forward = move;
