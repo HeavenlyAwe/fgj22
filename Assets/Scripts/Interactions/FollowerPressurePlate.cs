@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class FollowerPressurePlate : MonoBehaviour
+public class FollowerPressurePlate : PressurePlate
 {
-    public UnityEvent<bool> pressed = new UnityEvent<bool>();
-
     public AIController.Faction faction;
 
     public Color highlightColor;
@@ -35,6 +33,7 @@ public class FollowerPressurePlate : MonoBehaviour
                 this.enabled = false;
 
                 aic.StayBehind(transform.position);
+                InvokePressed(true);
 
                 if (callbackAction != null)
                 {

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerPressurePlate : MonoBehaviour
+public class PlayerPressurePlate : PressurePlate
 {
-    public UnityEvent<bool> pressed = new UnityEvent<bool>();
-
     public GameObject player;
     public Color highlightColor;
 
@@ -31,7 +29,7 @@ public class PlayerPressurePlate : MonoBehaviour
         if (colliders.Count > 0)
         {
             this.GetComponent<Renderer>().material.color = highlightColor;
-            pressed.Invoke(true);
+            InvokePressed(true);
         }
     }
 
@@ -41,7 +39,7 @@ public class PlayerPressurePlate : MonoBehaviour
         if (colliders.Count == 0)
         {
             this.GetComponent<Renderer>().material.color = originalColor;
-            pressed.Invoke(false);
+            InvokePressed(false);
         }
     }
 }

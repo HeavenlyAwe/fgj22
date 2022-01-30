@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class TupleTriggerObjective : MonoBehaviour
 {
-    public PlayerPressurePlate pressurePlate1;
-    public PlayerPressurePlate pressurePlate2;
-
+    public PressurePlate[] pressurePlates;
     public CallbackAction callbackAction;
 
-    private bool pressed1 = false;
-    private bool pressed2 = false;
-
+    private Dictionary<int, bool> pressedDict = new Dictionary<int, bool>();
 
     // Start is called before the first frame update
     void Start()
     {
-        pressurePlate1.pressed.AddListener(CheckPressed1);
-        pressurePlate2.pressed.AddListener(CheckPressed2);
+        foreach (PressurePlate plate in pressurePlates)
+        {
+            plate.pressed.AddListener(CheckPressed);
+            pressedDict.Add(plate.GetInstanceID(), false);
+        }
     }
 
-    public void CheckPressed1(bool pressed)
+    public void CheckPressed(int id, bool pressed)
     {
-        pressed1 = pressed;
-    }
-
-    public void CheckPressed2(bool pressed)
-    {
-        pressed2 = pressed;
+        pressedDict[id] = pressed;
     }
 
     void Update()
     {
-        if (pressed1 && pressed2)
+        bool allPressed = true;
+        foreach (int key in pressedDict.Keys)
+        {
+            allPressed &= pressedDict[key];
+        }
+
+        if (allPressed)
         {
             Debug.Log("Mission complete!");
             if (callbackAction != null)
