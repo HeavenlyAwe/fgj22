@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 5977176796df3f399bfa8b214cc62935
   - enabled: 0
@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/EmilsScene.unity
     guid: 033b49a5f200653438c5d9221eef59dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BigPlayground.unity
     guid: 8dc41885f06d56c4aa9a73b2125589a5
+  - enabled: 1
+    path: Assets/Scenes/RaceScene.unity
+    guid: 7b63d23d40a2dc54797834d445c3d8d7
   m_configObjects: {}

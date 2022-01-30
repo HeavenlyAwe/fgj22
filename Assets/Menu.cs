@@ -35,8 +35,7 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        //SceneManager.LoadScene("DevToffe");
-        SceneManager.LoadScene("EmilsScene");
+        SceneManager.LoadScene("RaceScene");
     }
 
     public void ControllerSetup()
