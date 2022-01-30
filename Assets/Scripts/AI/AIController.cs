@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.TerrainAPI;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
