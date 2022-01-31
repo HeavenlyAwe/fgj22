@@ -20,3 +20,24 @@ NB! However, the button mapping seems to a bit buggy, so buttons can sometimes w
 in-game even though they appear to be broken in the menu!
 
 ![Screenshot](Screenshot.png)
+
+## Credits
+
+### Sound
+
+* Leo Krechmer
+
+### Art
+
+* Onni Mäkilä
+
+### Programming
+
+* Anders Forsman
+* Emil Levo
+* Christoffer Fridlund
+
+
+### Voice over
+
+* Batat (the cat)
